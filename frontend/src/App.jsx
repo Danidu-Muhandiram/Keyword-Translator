@@ -1,10 +1,48 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 export default function App() {
   const [inputValue, setInputValue] = useState("");
   const [keywords, setKeywords] = useState([]);
   const [selectedLanguage, setSelectedLanguage] = useState("es");
   const [hoveredIndex, setHoveredIndex] = useState(null);
+  const [translations, setTranslations] = useState([]);
+  const [isTranslating, setIsTranslating] = useState(false);
+
+  // Translate keywords whenever keywords or language changes
+  useEffect(() => {
+    if (keywords.length === 0) {
+      setTranslations([]);
+      return;
+    }
+
+    const translateKeywords = async () => {
+      setIsTranslating(true);
+      try {
+        const response = await fetch('http://localhost:3000/api/translate', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            keywords,
+            targetLanguage: selectedLanguage
+          })
+        });
+
+        const data = await response.json();
+        if (data.success) {
+          setTranslations(data.translations);
+        }
+      } catch (error) {
+        console.error('Translation error:', error);
+        setTranslations(keywords.map(() => 'Translation unavailable'));
+      } finally {
+        setIsTranslating(false);
+      }
+    };
+
+    translateKeywords();
+  }, [keywords, selectedLanguage]);
 
   const handleInputChange = (e) => {
     const value = e.target.value;
@@ -30,6 +68,7 @@ export default function App() {
 
   const removeKeyword = (indexToRemove) => {
     setKeywords(keywords.filter((_, index) => index !== indexToRemove));
+    setTranslations(translations.filter((_, index) => index !== indexToRemove));
     setHoveredIndex(null);
   };
 
@@ -155,7 +194,7 @@ export default function App() {
               <div className="h-80 bg-gradient-to-br from-gray-50 to-emerald-50/30 border-2 border-dashed border-gray-300 rounded-2xl p-4 shadow-inner overflow-y-auto">
                 {keywords.length > 0 ? (
                   <div className="flex flex-wrap gap-1.5">
-                    {keywords.map((keyword, index) => (
+                    {translations.map((translation, index) => (
                       <div
                         key={index}
                         onMouseEnter={() => setHoveredIndex(index)}
@@ -166,7 +205,7 @@ export default function App() {
                             : 'bg-blue-50 border border-blue-300 text-gray-700'
                         }`}
                       >
-                        <span>{keyword}</span>
+                        <span>{isTranslating && index >= translations.length - 1 ? '...' : translation}</span>
                         <button
                           onClick={() => removeKeyword(index)}
                           className="w-4 h-4 flex items-center justify-center rounded-full hover:bg-red-100 transition-all"
