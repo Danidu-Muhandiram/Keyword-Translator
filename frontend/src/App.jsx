@@ -117,7 +117,7 @@ export default function App() {
     const translateKeywords = async () => {
       setIsTranslating(true);
       try {
-        const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+        const apiUrl = (import.meta.env.VITE_API_URL || 'http://localhost:3000').replace(/\/$/, '');
         const response = await fetch(`${apiUrl}/api/translate`, {
           method: 'POST',
           headers: {
