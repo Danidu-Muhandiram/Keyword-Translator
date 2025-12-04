@@ -175,20 +175,80 @@ export default function App() {
                     backgroundRepeat: 'no-repeat, no-repeat'
                   }}
                 >
-                  <option value="es" className="bg-white text-gray-800 py-2">🇪🇸 Spanish</option>
-                  <option value="fr" className="bg-white text-gray-800 py-2">🇫🇷 French</option>
-                  <option value="de" className="bg-white text-gray-800 py-2">🇩🇪 German</option>
-                  <option value="zh" className="bg-white text-gray-800 py-2">🇨🇳 Chinese</option>
-                  <option value="hi" className="bg-white text-gray-800 py-2">🇮🇳 Hindi</option>
-                  <option value="ja" className="bg-white text-gray-800 py-2">🇯🇵 Japanese</option>
+                  <option value="af" className="bg-white text-gray-800 py-2">🇿🇦 Afrikaans</option>
+                  <option value="sq" className="bg-white text-gray-800 py-2">🇦🇱 Albanian</option>
                   <option value="ar" className="bg-white text-gray-800 py-2">🇸🇦 Arabic</option>
-                  <option value="pt" className="bg-white text-gray-800 py-2">🇧🇷 Portuguese</option>
-                  <option value="ru" className="bg-white text-gray-800 py-2">🇷🇺 Russian</option>
-                  <option value="it" className="bg-white text-gray-800 py-2">🇮🇹 Italian</option>
-                  <option value="ko" className="bg-white text-gray-800 py-2">🇰🇷 Korean</option>
+                  <option value="hy" className="bg-white text-gray-800 py-2">🇦🇲 Armenian</option>
+                  <option value="az" className="bg-white text-gray-800 py-2">🇦🇿 Azerbaijani</option>
+                  <option value="eu" className="bg-white text-gray-800 py-2">🇪🇸 Basque</option>
+                  <option value="be" className="bg-white text-gray-800 py-2">🇧🇾 Belarusian</option>
+                  <option value="bn" className="bg-white text-gray-800 py-2">🇧🇩 Bengali</option>
+                  <option value="bs" className="bg-white text-gray-800 py-2">🇧🇦 Bosnian</option>
+                  <option value="bg" className="bg-white text-gray-800 py-2">🇧🇬 Bulgarian</option>
+                  <option value="ca" className="bg-white text-gray-800 py-2">🇪🇸 Catalan</option>
+                  <option value="zh" className="bg-white text-gray-800 py-2">🇨🇳 Chinese</option>
+                  <option value="hr" className="bg-white text-gray-800 py-2">🇭🇷 Croatian</option>
+                  <option value="cs" className="bg-white text-gray-800 py-2">🇨🇿 Czech</option>
+                  <option value="da" className="bg-white text-gray-800 py-2">🇩🇰 Danish</option>
                   <option value="nl" className="bg-white text-gray-800 py-2">🇳🇱 Dutch</option>
-                  <option value="tr" className="bg-white text-gray-800 py-2">🇹🇷 Turkish</option>
+                  <option value="en" className="bg-white text-gray-800 py-2">🇬🇧 English</option>
+                  <option value="et" className="bg-white text-gray-800 py-2">🇪🇪 Estonian</option>
+                  <option value="fi" className="bg-white text-gray-800 py-2">🇫🇮 Finnish</option>
+                  <option value="fr" className="bg-white text-gray-800 py-2">🇫🇷 French</option>
+                  <option value="gl" className="bg-white text-gray-800 py-2">🇪🇸 Galician</option>
+                  <option value="ka" className="bg-white text-gray-800 py-2">🇬🇪 Georgian</option>
+                  <option value="de" className="bg-white text-gray-800 py-2">🇩🇪 German</option>
+                  <option value="el" className="bg-white text-gray-800 py-2">🇬🇷 Greek</option>
+                  <option value="gu" className="bg-white text-gray-800 py-2">🇮🇳 Gujarati</option>
+                  <option value="ht" className="bg-white text-gray-800 py-2">🇭🇹 Haitian Creole</option>
+                  <option value="he" className="bg-white text-gray-800 py-2">🇮🇱 Hebrew</option>
+                  <option value="hi" className="bg-white text-gray-800 py-2">🇮🇳 Hindi</option>
+                  <option value="hu" className="bg-white text-gray-800 py-2">🇭🇺 Hungarian</option>
+                  <option value="is" className="bg-white text-gray-800 py-2">🇮🇸 Icelandic</option>
+                  <option value="id" className="bg-white text-gray-800 py-2">🇮🇩 Indonesian</option>
+                  <option value="ga" className="bg-white text-gray-800 py-2">🇮🇪 Irish</option>
+                  <option value="it" className="bg-white text-gray-800 py-2">🇮🇹 Italian</option>
+                  <option value="ja" className="bg-white text-gray-800 py-2">🇯🇵 Japanese</option>
+                  <option value="kn" className="bg-white text-gray-800 py-2">🇮🇳 Kannada</option>
+                  <option value="kk" className="bg-white text-gray-800 py-2">🇰🇿 Kazakh</option>
+                  <option value="ko" className="bg-white text-gray-800 py-2">🇰🇷 Korean</option>
+                  <option value="ky" className="bg-white text-gray-800 py-2">🇰🇬 Kyrgyz</option>
+                  <option value="lo" className="bg-white text-gray-800 py-2">🇱🇦 Lao</option>
+                  <option value="lv" className="bg-white text-gray-800 py-2">🇱🇻 Latvian</option>
+                  <option value="lt" className="bg-white text-gray-800 py-2">🇱🇹 Lithuanian</option>
+                  <option value="mk" className="bg-white text-gray-800 py-2">🇲🇰 Macedonian</option>
+                  <option value="ms" className="bg-white text-gray-800 py-2">🇲🇾 Malay</option>
+                  <option value="ml" className="bg-white text-gray-800 py-2">🇮🇳 Malayalam</option>
+                  <option value="mt" className="bg-white text-gray-800 py-2">🇲🇹 Maltese</option>
+                  <option value="mr" className="bg-white text-gray-800 py-2">🇮🇳 Marathi</option>
+                  <option value="mn" className="bg-white text-gray-800 py-2">🇲🇳 Mongolian</option>
+                  <option value="ne" className="bg-white text-gray-800 py-2">🇳🇵 Nepali</option>
+                  <option value="no" className="bg-white text-gray-800 py-2">🇳🇴 Norwegian</option>
+                  <option value="fa" className="bg-white text-gray-800 py-2">🇮🇷 Persian</option>
                   <option value="pl" className="bg-white text-gray-800 py-2">🇵🇱 Polish</option>
+                  <option value="pt" className="bg-white text-gray-800 py-2">🇧🇷 Portuguese</option>
+                  <option value="pa" className="bg-white text-gray-800 py-2">🇮🇳 Punjabi</option>
+                  <option value="ro" className="bg-white text-gray-800 py-2">🇷🇴 Romanian</option>
+                  <option value="ru" className="bg-white text-gray-800 py-2">🇷🇺 Russian</option>
+                  <option value="sr" className="bg-white text-gray-800 py-2">🇷🇸 Serbian</option>
+                  <option value="si" className="bg-white text-gray-800 py-2">🇱🇰 Sinhala</option>
+                  <option value="sk" className="bg-white text-gray-800 py-2">🇸🇰 Slovak</option>
+                  <option value="sl" className="bg-white text-gray-800 py-2">🇸🇮 Slovenian</option>
+                  <option value="es" className="bg-white text-gray-800 py-2">🇪🇸 Spanish</option>
+                  <option value="sw" className="bg-white text-gray-800 py-2">🇰🇪 Swahili</option>
+                  <option value="sv" className="bg-white text-gray-800 py-2">🇸🇪 Swedish</option>
+                  <option value="tl" className="bg-white text-gray-800 py-2">🇵🇭 Tagalog</option>
+                  <option value="ta" className="bg-white text-gray-800 py-2">🇮🇳 Tamil</option>
+                  <option value="te" className="bg-white text-gray-800 py-2">🇮🇳 Telugu</option>
+                  <option value="th" className="bg-white text-gray-800 py-2">🇹🇭 Thai</option>
+                  <option value="tr" className="bg-white text-gray-800 py-2">🇹🇷 Turkish</option>
+                  <option value="uk" className="bg-white text-gray-800 py-2">🇺🇦 Ukrainian</option>
+                  <option value="ur" className="bg-white text-gray-800 py-2">🇵🇰 Urdu</option>
+                  <option value="uz" className="bg-white text-gray-800 py-2">🇺🇿 Uzbek</option>
+                  <option value="vi" className="bg-white text-gray-800 py-2">🇻🇳 Vietnamese</option>
+                  <option value="cy" className="bg-white text-gray-800 py-2">🏴󠁧󠁢󠁷󠁬󠁳󠁿 Welsh</option>
+                  <option value="yi" className="bg-white text-gray-800 py-2">✡️ Yiddish</option>
+                  <option value="zu" className="bg-white text-gray-800 py-2">🇿🇦 Zulu</option>
                 </select>
               </div>
               <div className="h-80 bg-gradient-to-br from-gray-50 to-emerald-50/30 border-2 border-dashed border-gray-300 rounded-2xl p-4 shadow-inner overflow-y-auto">
