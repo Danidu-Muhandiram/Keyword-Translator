@@ -3,10 +3,109 @@ import React, { useState, useEffect } from "react";
 export default function App() {
   const [inputValue, setInputValue] = useState("");
   const [keywords, setKeywords] = useState([]);
-  const [selectedLanguage, setSelectedLanguage] = useState("es");
+  const [selectedLanguage, setSelectedLanguage] = useState("si");
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const [translations, setTranslations] = useState([]);
   const [isTranslating, setIsTranslating] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [languageSearch, setLanguageSearch] = useState("");
+
+  const languages = [
+    { code: "af", name: "Afrikaans", flag: "🇿🇦" },
+    { code: "sq", name: "Albanian", flag: "🇦🇱" },
+    { code: "ar", name: "Arabic", flag: "🇸🇦" },
+    { code: "hy", name: "Armenian", flag: "🇦🇲" },
+    { code: "az", name: "Azerbaijani", flag: "🇦🇿" },
+    { code: "eu", name: "Basque", flag: "🇪🇸" },
+    { code: "be", name: "Belarusian", flag: "🇧🇾" },
+    { code: "bn", name: "Bengali", flag: "🇧🇩" },
+    { code: "bs", name: "Bosnian", flag: "🇧🇦" },
+    { code: "bg", name: "Bulgarian", flag: "🇧🇬" },
+    { code: "ca", name: "Catalan", flag: "🇪🇸" },
+    { code: "zh", name: "Chinese", flag: "🇨🇳" },
+    { code: "hr", name: "Croatian", flag: "🇭🇷" },
+    { code: "cs", name: "Czech", flag: "🇨🇿" },
+    { code: "da", name: "Danish", flag: "🇩🇰" },
+    { code: "nl", name: "Dutch", flag: "🇳🇱" },
+    { code: "en", name: "English", flag: "🇬🇧" },
+    { code: "et", name: "Estonian", flag: "🇪🇪" },
+    { code: "fi", name: "Finnish", flag: "🇫🇮" },
+    { code: "fr", name: "French", flag: "🇫🇷" },
+    { code: "gl", name: "Galician", flag: "🇪🇸" },
+    { code: "ka", name: "Georgian", flag: "🇬🇪" },
+    { code: "de", name: "German", flag: "🇩🇪" },
+    { code: "el", name: "Greek", flag: "🇬🇷" },
+    { code: "gu", name: "Gujarati", flag: "🇮🇳" },
+    { code: "ht", name: "Haitian Creole", flag: "🇭🇹" },
+    { code: "he", name: "Hebrew", flag: "🇮🇱" },
+    { code: "hi", name: "Hindi", flag: "🇮🇳" },
+    { code: "hu", name: "Hungarian", flag: "🇭🇺" },
+    { code: "is", name: "Icelandic", flag: "🇮🇸" },
+    { code: "id", name: "Indonesian", flag: "🇮🇩" },
+    { code: "ga", name: "Irish", flag: "🇮🇪" },
+    { code: "it", name: "Italian", flag: "🇮🇹" },
+    { code: "ja", name: "Japanese", flag: "🇯🇵" },
+    { code: "kn", name: "Kannada", flag: "🇮🇳" },
+    { code: "kk", name: "Kazakh", flag: "🇰🇿" },
+    { code: "ko", name: "Korean", flag: "🇰🇷" },
+    { code: "ky", name: "Kyrgyz", flag: "🇰🇬" },
+    { code: "lo", name: "Lao", flag: "🇱🇦" },
+    { code: "lv", name: "Latvian", flag: "🇱🇻" },
+    { code: "lt", name: "Lithuanian", flag: "🇱🇹" },
+    { code: "mk", name: "Macedonian", flag: "🇲🇰" },
+    { code: "ms", name: "Malay", flag: "🇲🇾" },
+    { code: "ml", name: "Malayalam", flag: "🇮🇳" },
+    { code: "mt", name: "Maltese", flag: "🇲🇹" },
+    { code: "mr", name: "Marathi", flag: "🇮🇳" },
+    { code: "mn", name: "Mongolian", flag: "🇲🇳" },
+    { code: "ne", name: "Nepali", flag: "🇳🇵" },
+    { code: "no", name: "Norwegian", flag: "🇳🇴" },
+    { code: "fa", name: "Persian", flag: "🇮🇷" },
+    { code: "pl", name: "Polish", flag: "🇵🇱" },
+    { code: "pt", name: "Portuguese", flag: "🇧🇷" },
+    { code: "pa", name: "Punjabi", flag: "🇮🇳" },
+    { code: "ro", name: "Romanian", flag: "🇷🇴" },
+    { code: "ru", name: "Russian", flag: "🇷🇺" },
+    { code: "sr", name: "Serbian", flag: "🇷🇸" },
+    { code: "si", name: "Sinhala", flag: "🇱🇰" },
+    { code: "sk", name: "Slovak", flag: "🇸🇰" },
+    { code: "sl", name: "Slovenian", flag: "🇸🇮" },
+    { code: "es", name: "Spanish", flag: "🇪🇸" },
+    { code: "sw", name: "Swahili", flag: "🇰🇪" },
+    { code: "sv", name: "Swedish", flag: "🇸🇪" },
+    { code: "tl", name: "Tagalog", flag: "🇵🇭" },
+    { code: "ta", name: "Tamil", flag: "🇮🇳" },
+    { code: "te", name: "Telugu", flag: "🇮🇳" },
+    { code: "th", name: "Thai", flag: "🇹🇭" },
+    { code: "tr", name: "Turkish", flag: "🇹🇷" },
+    { code: "uk", name: "Ukrainian", flag: "🇺🇦" },
+    { code: "ur", name: "Urdu", flag: "🇵🇰" },
+    { code: "uz", name: "Uzbek", flag: "🇺🇿" },
+    { code: "vi", name: "Vietnamese", flag: "🇻🇳" },
+    { code: "cy", name: "Welsh", flag: "🏴󠁧󠁢󠁷󠁬󠁳󠁿" },
+    { code: "yi", name: "Yiddish", flag: "✡️" },
+    { code: "zu", name: "Zulu", flag: "🇿🇦" }
+  ];
+
+  const filteredLanguages = languageSearch
+    ? languages.filter(lang => 
+        lang.name.toLowerCase().includes(languageSearch.toLowerCase())
+      )
+    : languages;
+
+  const selectedLang = languages.find(l => l.code === selectedLanguage) || languages[0];
+
+  // close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (searchOpen && !e.target.closest('.language-dropdown')) {
+        setSearchOpen(false);
+        setLanguageSearch("");
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [searchOpen]);
 
   // Translate keywords whenever keywords or language changes
   useEffect(() => {
@@ -163,93 +262,61 @@ export default function App() {
                   <span className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></span>
                   Translated Keywords
                 </h3>
-                <select
-                  value={selectedLanguage}
-                  onChange={(e) => setSelectedLanguage(e.target.value)}
-                  className="pl-4 py-2 text-sm bg-gradient-to-r from-green-500 to-emerald-600 text-white font-semibold rounded-xl border-0 shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer focus:ring-4 focus:ring-green-200 focus:outline-none appearance-none"
-                  style={{ 
-                    paddingRight: '2.5rem',
-                    backgroundImage: `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M6 8l4 4 4-4'/%3e%3c/svg%3e"), linear-gradient(to right, rgb(34 197 94), rgb(5 150 105))`,
-                    backgroundPosition: 'right 0.75rem center, center',
-                    backgroundSize: '1.25em 1.25em, cover',
-                    backgroundRepeat: 'no-repeat, no-repeat'
-                  }}
-                >
-                  <option value="af" className="bg-white text-gray-800 py-2">🇿🇦 Afrikaans</option>
-                  <option value="sq" className="bg-white text-gray-800 py-2">🇦🇱 Albanian</option>
-                  <option value="ar" className="bg-white text-gray-800 py-2">🇸🇦 Arabic</option>
-                  <option value="hy" className="bg-white text-gray-800 py-2">🇦🇲 Armenian</option>
-                  <option value="az" className="bg-white text-gray-800 py-2">🇦🇿 Azerbaijani</option>
-                  <option value="eu" className="bg-white text-gray-800 py-2">🇪🇸 Basque</option>
-                  <option value="be" className="bg-white text-gray-800 py-2">🇧🇾 Belarusian</option>
-                  <option value="bn" className="bg-white text-gray-800 py-2">🇧🇩 Bengali</option>
-                  <option value="bs" className="bg-white text-gray-800 py-2">🇧🇦 Bosnian</option>
-                  <option value="bg" className="bg-white text-gray-800 py-2">🇧🇬 Bulgarian</option>
-                  <option value="ca" className="bg-white text-gray-800 py-2">🇪🇸 Catalan</option>
-                  <option value="zh" className="bg-white text-gray-800 py-2">🇨🇳 Chinese</option>
-                  <option value="hr" className="bg-white text-gray-800 py-2">🇭🇷 Croatian</option>
-                  <option value="cs" className="bg-white text-gray-800 py-2">🇨🇿 Czech</option>
-                  <option value="da" className="bg-white text-gray-800 py-2">🇩🇰 Danish</option>
-                  <option value="nl" className="bg-white text-gray-800 py-2">🇳🇱 Dutch</option>
-                  <option value="en" className="bg-white text-gray-800 py-2">🇬🇧 English</option>
-                  <option value="et" className="bg-white text-gray-800 py-2">🇪🇪 Estonian</option>
-                  <option value="fi" className="bg-white text-gray-800 py-2">🇫🇮 Finnish</option>
-                  <option value="fr" className="bg-white text-gray-800 py-2">🇫🇷 French</option>
-                  <option value="gl" className="bg-white text-gray-800 py-2">🇪🇸 Galician</option>
-                  <option value="ka" className="bg-white text-gray-800 py-2">🇬🇪 Georgian</option>
-                  <option value="de" className="bg-white text-gray-800 py-2">🇩🇪 German</option>
-                  <option value="el" className="bg-white text-gray-800 py-2">🇬🇷 Greek</option>
-                  <option value="gu" className="bg-white text-gray-800 py-2">🇮🇳 Gujarati</option>
-                  <option value="ht" className="bg-white text-gray-800 py-2">🇭🇹 Haitian Creole</option>
-                  <option value="he" className="bg-white text-gray-800 py-2">🇮🇱 Hebrew</option>
-                  <option value="hi" className="bg-white text-gray-800 py-2">🇮🇳 Hindi</option>
-                  <option value="hu" className="bg-white text-gray-800 py-2">🇭🇺 Hungarian</option>
-                  <option value="is" className="bg-white text-gray-800 py-2">🇮🇸 Icelandic</option>
-                  <option value="id" className="bg-white text-gray-800 py-2">🇮🇩 Indonesian</option>
-                  <option value="ga" className="bg-white text-gray-800 py-2">🇮🇪 Irish</option>
-                  <option value="it" className="bg-white text-gray-800 py-2">🇮🇹 Italian</option>
-                  <option value="ja" className="bg-white text-gray-800 py-2">🇯🇵 Japanese</option>
-                  <option value="kn" className="bg-white text-gray-800 py-2">🇮🇳 Kannada</option>
-                  <option value="kk" className="bg-white text-gray-800 py-2">🇰🇿 Kazakh</option>
-                  <option value="ko" className="bg-white text-gray-800 py-2">🇰🇷 Korean</option>
-                  <option value="ky" className="bg-white text-gray-800 py-2">🇰🇬 Kyrgyz</option>
-                  <option value="lo" className="bg-white text-gray-800 py-2">🇱🇦 Lao</option>
-                  <option value="lv" className="bg-white text-gray-800 py-2">🇱🇻 Latvian</option>
-                  <option value="lt" className="bg-white text-gray-800 py-2">🇱🇹 Lithuanian</option>
-                  <option value="mk" className="bg-white text-gray-800 py-2">🇲🇰 Macedonian</option>
-                  <option value="ms" className="bg-white text-gray-800 py-2">🇲🇾 Malay</option>
-                  <option value="ml" className="bg-white text-gray-800 py-2">🇮🇳 Malayalam</option>
-                  <option value="mt" className="bg-white text-gray-800 py-2">🇲🇹 Maltese</option>
-                  <option value="mr" className="bg-white text-gray-800 py-2">🇮🇳 Marathi</option>
-                  <option value="mn" className="bg-white text-gray-800 py-2">🇲🇳 Mongolian</option>
-                  <option value="ne" className="bg-white text-gray-800 py-2">🇳🇵 Nepali</option>
-                  <option value="no" className="bg-white text-gray-800 py-2">🇳🇴 Norwegian</option>
-                  <option value="fa" className="bg-white text-gray-800 py-2">🇮🇷 Persian</option>
-                  <option value="pl" className="bg-white text-gray-800 py-2">🇵🇱 Polish</option>
-                  <option value="pt" className="bg-white text-gray-800 py-2">🇧🇷 Portuguese</option>
-                  <option value="pa" className="bg-white text-gray-800 py-2">🇮🇳 Punjabi</option>
-                  <option value="ro" className="bg-white text-gray-800 py-2">🇷🇴 Romanian</option>
-                  <option value="ru" className="bg-white text-gray-800 py-2">🇷🇺 Russian</option>
-                  <option value="sr" className="bg-white text-gray-800 py-2">🇷🇸 Serbian</option>
-                  <option value="si" className="bg-white text-gray-800 py-2">🇱🇰 Sinhala</option>
-                  <option value="sk" className="bg-white text-gray-800 py-2">🇸🇰 Slovak</option>
-                  <option value="sl" className="bg-white text-gray-800 py-2">🇸🇮 Slovenian</option>
-                  <option value="es" className="bg-white text-gray-800 py-2">🇪🇸 Spanish</option>
-                  <option value="sw" className="bg-white text-gray-800 py-2">🇰🇪 Swahili</option>
-                  <option value="sv" className="bg-white text-gray-800 py-2">🇸🇪 Swedish</option>
-                  <option value="tl" className="bg-white text-gray-800 py-2">🇵🇭 Tagalog</option>
-                  <option value="ta" className="bg-white text-gray-800 py-2">🇮🇳 Tamil</option>
-                  <option value="te" className="bg-white text-gray-800 py-2">🇮🇳 Telugu</option>
-                  <option value="th" className="bg-white text-gray-800 py-2">🇹🇭 Thai</option>
-                  <option value="tr" className="bg-white text-gray-800 py-2">🇹🇷 Turkish</option>
-                  <option value="uk" className="bg-white text-gray-800 py-2">🇺🇦 Ukrainian</option>
-                  <option value="ur" className="bg-white text-gray-800 py-2">🇵🇰 Urdu</option>
-                  <option value="uz" className="bg-white text-gray-800 py-2">🇺🇿 Uzbek</option>
-                  <option value="vi" className="bg-white text-gray-800 py-2">🇻🇳 Vietnamese</option>
-                  <option value="cy" className="bg-white text-gray-800 py-2">🏴󠁧󠁢󠁷󠁬󠁳󠁿 Welsh</option>
-                  <option value="yi" className="bg-white text-gray-800 py-2">✡️ Yiddish</option>
-                  <option value="zu" className="bg-white text-gray-800 py-2">🇿🇦 Zulu</option>
-                </select>
+                
+                {/* Searchable Language Dropdown */}
+                <div className="relative language-dropdown">
+                  <button
+                    onClick={() => setSearchOpen(!searchOpen)}
+                    className="pl-4 pr-3 py-2 text-sm bg-gradient-to-r from-green-500 to-emerald-600 text-white font-semibold rounded-xl border-0 shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer focus:ring-4 focus:ring-green-200 focus:outline-none flex items-center gap-2"
+                  >
+                    <span>{selectedLang.flag}</span>
+                    <span>{selectedLang.name}</span>
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </button>
+
+                  {searchOpen && (
+                    <div className="absolute right-0 mt-2 w-64 bg-white rounded-xl shadow-2xl border border-gray-200 z-50 max-h-96 overflow-hidden">
+                      {/* Search box */}
+                      <div className="p-3 border-b sticky top-0 bg-white">
+                        <input
+                          type="text"
+                          value={languageSearch}
+                          onChange={(e) => setLanguageSearch(e.target.value)}
+                          placeholder="Search languages..."
+                          className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
+                          autoFocus
+                        />
+                      </div>
+                      
+                      {/* Language list */}
+                      <div className="overflow-y-auto max-h-72">
+                        {filteredLanguages.map((lang) => (
+                          <button
+                            key={lang.code}
+                            onClick={() => {
+                              setSelectedLanguage(lang.code);
+                              setSearchOpen(false);
+                              setLanguageSearch("");
+                            }}
+                            className={`w-full px-4 py-2.5 text-left hover:bg-green-50 transition-colors flex items-center gap-2 ${
+                              selectedLanguage === lang.code ? 'bg-green-100 font-semibold' : ''
+                            }`}
+                          >
+                            <span>{lang.flag}</span>
+                            <span className="text-gray-800">{lang.name}</span>
+                          </button>
+                        ))}
+                        {filteredLanguages.length === 0 && (
+                          <div className="px-4 py-8 text-center text-gray-500 text-sm">
+                            No languages found
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  )}
+                </div>
               </div>
               <div className="h-80 bg-gradient-to-br from-gray-50 to-emerald-50/30 border-2 border-dashed border-gray-300 rounded-2xl p-4 shadow-inner overflow-y-auto">
                 {keywords.length > 0 ? (
