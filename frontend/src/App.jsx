@@ -4,6 +4,7 @@ export default function App() {
   const [inputValue, setInputValue] = useState("");
   const [keywords, setKeywords] = useState([]);
   const [selectedLanguage, setSelectedLanguage] = useState("es");
+  const [hoveredIndex, setHoveredIndex] = useState(null);
 
   const handleInputChange = (e) => {
     const value = e.target.value;
@@ -29,6 +30,7 @@ export default function App() {
 
   const removeKeyword = (indexToRemove) => {
     setKeywords(keywords.filter((_, index) => index !== indexToRemove));
+    setHoveredIndex(null);
   };
 
   return (
@@ -76,7 +78,13 @@ export default function App() {
                   {keywords.map((keyword, index) => (
                     <div
                       key={index}
-                      className="inline-flex items-center gap-1.5 bg-green-50 border border-green-300 text-gray-700 px-2.5 py-1 rounded-lg text-sm font-medium shadow-sm hover:border-green-400 hover:bg-green-100 transition-all duration-200 group"
+                      onMouseEnter={() => setHoveredIndex(index)}
+                      onMouseLeave={() => setHoveredIndex(null)}
+                      className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-sm font-medium shadow-sm transition-all duration-200 cursor-pointer ${
+                        hoveredIndex === index
+                          ? 'bg-green-200 border-2 border-green-500 text-gray-800 scale-105 shadow-md'
+                          : 'bg-green-50 border border-green-300 text-gray-700 hover:border-green-400 hover:bg-green-100'
+                      }`}
                     >
                       <span>{keyword}</span>
                       <button
@@ -150,7 +158,13 @@ export default function App() {
                     {keywords.map((keyword, index) => (
                       <div
                         key={index}
-                        className="inline-flex items-center gap-1.5 bg-blue-50 border border-blue-300 text-gray-700 px-2.5 py-1 rounded-lg text-sm font-medium shadow-sm"
+                        onMouseEnter={() => setHoveredIndex(index)}
+                        onMouseLeave={() => setHoveredIndex(null)}
+                        className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-sm font-medium shadow-sm transition-all duration-200 cursor-pointer ${
+                          hoveredIndex === index
+                            ? 'bg-blue-200 border-2 border-blue-500 text-gray-800 scale-105 shadow-md'
+                            : 'bg-blue-50 border border-blue-300 text-gray-700'
+                        }`}
                       >
                         <span>{keyword}</span>
                         <button
