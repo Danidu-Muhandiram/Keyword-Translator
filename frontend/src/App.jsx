@@ -1,8 +1,35 @@
 import React, { useState } from "react";
 
 export default function App() {
-  const [keywords, setKeywords] = useState("");
+  const [inputValue, setInputValue] = useState("");
+  const [keywords, setKeywords] = useState([]);
   const [selectedLanguage, setSelectedLanguage] = useState("es");
+
+  const handleInputChange = (e) => {
+    const value = e.target.value;
+    setInputValue(value);
+    
+    // Check if user pressed comma or Enter
+    if (value.includes(',')) {
+      const newKeywords = value.split(',').map(k => k.trim()).filter(k => k.length > 0);
+      if (newKeywords.length > 0) {
+        setKeywords([...keywords, ...newKeywords]);
+        setInputValue('');
+      }
+    }
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter' && inputValue.trim()) {
+      e.preventDefault();
+      setKeywords([...keywords, inputValue.trim()]);
+      setInputValue('');
+    }
+  };
+
+  const removeKeyword = (indexToRemove) => {
+    setKeywords(keywords.filter((_, index) => index !== indexToRemove));
+  };
 
   return (
     <div className="h-screen bg-gradient-to-br from-emerald-50 via-green-50 to-teal-50 flex items-center justify-center px-6 overflow-hidden">
@@ -30,15 +57,46 @@ export default function App() {
                   Source Keywords
                 </h3>
                 <span className="text-xs text-gray-500 bg-gray-100 px-3 py-1 rounded-full font-medium">
-                  Comma separated
+                  {keywords.length} keywords
                 </span>
               </div>
-              <textarea
-                value={keywords}
-                onChange={(e) => setKeywords(e.target.value)}
-                className="w-full h-80 p-5 bg-gradient-to-br from-gray-50 to-green-50/20 border-2 border-gray-200 rounded-2xl focus:border-green-500 focus:bg-white focus:ring-4 focus:ring-green-100 transition-all duration-300 resize-none text-gray-700 text-base placeholder-gray-400 font-medium shadow-inner"
-                placeholder="apple, banana, orange, computer, phone, table, chair, book, pen, water..."
-              />
+              <div className="w-full h-80 p-4 bg-gradient-to-br from-gray-50 to-green-50/20 border-2 border-gray-200 rounded-2xl focus-within:border-green-500 focus-within:ring-4 focus-within:ring-green-100 transition-all duration-300 shadow-inner overflow-y-auto">
+                {/* Keywords Tags */}
+                <div className="flex flex-wrap gap-1.5 mb-2">
+                  {keywords.map((keyword, index) => (
+                    <div
+                      key={index}
+                      className="inline-flex items-center gap-1.5 bg-green-50 border border-green-300 text-gray-700 px-2.5 py-1 rounded-lg text-sm font-medium shadow-sm hover:border-green-400 hover:bg-green-100 transition-all duration-200 group"
+                    >
+                      <span>{keyword}</span>
+                      <button
+                        onClick={() => removeKeyword(index)}
+                        className="w-4 h-4 flex items-center justify-center rounded-full hover:bg-red-100 transition-all"
+                        title="Remove"
+                      >
+                        <svg className="w-2.5 h-2.5 text-gray-500 hover:text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                      </button>
+                    </div>
+                  ))}
+                </div>
+                {/* Input field */}
+                <input
+                  type="text"
+                  value={inputValue}
+                  onChange={handleInputChange}
+                  onKeyDown={handleKeyDown}
+                  className="w-full bg-transparent border-0 focus:outline-none text-gray-700 text-sm placeholder-gray-400"
+                  placeholder={keywords.length === 0 ? "Type keywords and press comma or Enter..." : "Add more..."}
+                />
+              </div>
+              <p className="text-xs text-gray-500 flex items-center gap-1">
+                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                Press comma (,) or Enter after each keyword
+              </p>
             </div>
 
             {/* Right Column - Output */}
@@ -69,16 +127,31 @@ export default function App() {
                   <option value="pl">🇵🇱 Polish</option>
                 </select>
               </div>
-              <div className="h-80 bg-gradient-to-br from-gray-50 to-emerald-50/30 border-2 border-dashed border-gray-300 rounded-2xl p-6 flex items-center justify-center shadow-inner">
-                <div className="text-center">
-                  <div className="w-16 h-16 bg-gradient-to-br from-green-100 to-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
-                    <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
-                    </svg>
+              <div className="h-80 bg-gradient-to-br from-gray-50 to-emerald-50/30 border-2 border-dashed border-gray-300 rounded-2xl p-4 shadow-inner overflow-y-auto">
+                {keywords.length > 0 ? (
+                  <div className="flex flex-wrap gap-1.5">
+                    {keywords.map((keyword, index) => (
+                      <div
+                        key={index}
+                        className="inline-flex items-center gap-1.5 bg-blue-50 border border-blue-300 text-gray-700 px-2.5 py-1 rounded-lg text-sm font-medium shadow-sm"
+                      >
+                        <span>{keyword}</span>
+                      </div>
+                    ))}
                   </div>
-                  <p className="text-gray-600 font-semibold mb-1">Enter keywords to see translations</p>
-                  <p className="text-sm text-gray-400">Translations appear here automatically</p>
-                </div>
+                ) : (
+                  <div className="h-full flex items-center justify-center">
+                    <div className="text-center">
+                      <div className="w-16 h-16 bg-gradient-to-br from-green-100 to-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+                        <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
+                        </svg>
+                      </div>
+                      <p className="text-gray-600 font-semibold mb-1">Enter keywords to see translations</p>
+                      <p className="text-sm text-gray-400">Translations appear here automatically</p>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           </div>
