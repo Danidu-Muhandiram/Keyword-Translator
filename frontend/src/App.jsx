@@ -37,14 +37,14 @@ export default function App() {
     <div className="h-screen bg-gradient-to-br from-emerald-50 via-green-50 to-teal-50 flex items-center justify-center px-6 overflow-hidden">
       <div className="w-full max-w-6xl">
         {/* Header */}
-        <div className="text-center mb-8">
+        <div className="text-center mb-4 mt-8">
           <h1 className="text-4xl font-bold mb-2">
             <span className="bg-gradient-to-r from-emerald-600 via-green-600 to-teal-600 bg-clip-text text-transparent">
               Keyword Translator
             </span>
           </h1>
           <p className="text-base text-gray-600">
-            Translate keywords instantly • AI-powered precision
+            Translate keywords instantly • Fast and accurate
           </p>
         </div>
 
@@ -53,10 +53,10 @@ export default function App() {
           <div className="grid lg:grid-cols-2 gap-6">
             {/* Left Column - Input */}
             <div className="space-y-3">
-              <div className="flex items-center justify-between">
+              <div className="flex items-center justify-between h-10">
                 <h3 className="text-lg font-bold text-gray-800 flex items-center gap-2">
                   <span className="w-2 h-2 bg-green-500 rounded-full"></span>
-                  Source Keywords
+                  Enter Keywords
                 </h3>
                 <div className="flex items-center gap-2">
                   {keywords.length > 0 && (
@@ -119,7 +119,7 @@ export default function App() {
 
             {/* Right Column - Output */}
             <div className="space-y-3">
-              <div className="flex items-center justify-between">
+              <div className="flex items-center justify-between h-10">
                 <h3 className="text-lg font-bold text-gray-800 flex items-center gap-2">
                   <span className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></span>
                   Translated Keywords
@@ -217,7 +217,7 @@ export default function App() {
               </div>
             </div>
             <div className="text-gray-400 font-medium">
-              Powered by AI
+              Simple & Fast
             </div>
           </div>
         </div>
