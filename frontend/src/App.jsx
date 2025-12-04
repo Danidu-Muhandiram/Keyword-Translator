@@ -56,9 +56,19 @@ export default function App() {
                   <span className="w-2 h-2 bg-green-500 rounded-full"></span>
                   Source Keywords
                 </h3>
-                <span className="text-xs text-gray-500 bg-gray-100 px-3 py-1 rounded-full font-medium">
-                  {keywords.length} keywords
-                </span>
+                <div className="flex items-center gap-2">
+                  {keywords.length > 0 && (
+                    <button
+                      onClick={() => setKeywords([])}
+                      className="text-xs text-red-600 hover:text-red-700 font-medium px-3 py-1 rounded-lg hover:bg-red-50 transition-all"
+                    >
+                      Clear All
+                    </button>
+                  )}
+                  <span className="text-xs text-gray-500 bg-gray-100 px-3 py-1 rounded-full font-medium">
+                    {keywords.length} keywords
+                  </span>
+                </div>
               </div>
               <div className="w-full h-80 p-4 bg-gradient-to-br from-gray-50 to-green-50/20 border-2 border-gray-200 rounded-2xl focus-within:border-green-500 focus-within:ring-4 focus-within:ring-green-100 transition-all duration-300 shadow-inner overflow-y-auto">
                 {/* Keywords Tags */}
@@ -136,6 +146,15 @@ export default function App() {
                         className="inline-flex items-center gap-1.5 bg-blue-50 border border-blue-300 text-gray-700 px-2.5 py-1 rounded-lg text-sm font-medium shadow-sm"
                       >
                         <span>{keyword}</span>
+                        <button
+                          onClick={() => removeKeyword(index)}
+                          className="w-4 h-4 flex items-center justify-center rounded-full hover:bg-red-100 transition-all"
+                          title="Remove"
+                        >
+                          <svg className="w-2.5 h-2.5 text-gray-500 hover:text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M6 18L18 6M6 6l12 12" />
+                          </svg>
+                        </button>
                       </div>
                     ))}
                   </div>
