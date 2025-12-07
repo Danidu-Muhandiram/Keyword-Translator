@@ -172,6 +172,15 @@ export default function App() {
     setHoveredIndex(null);
   };
 
+  const copyAllKeywords = () => {
+    const keywordsText = keywords.join(', ');
+    navigator.clipboard.writeText(keywordsText).then(() => {
+      alert('All keywords copied to clipboard!');
+    }).catch(err => {
+      console.error('Failed to copy:', err);
+    });
+  };
+
   const copyAllTranslations = () => {
     const translationsText = translations.join(', ');
     navigator.clipboard.writeText(translationsText).then(() => {
@@ -208,12 +217,23 @@ export default function App() {
                 </h3>
                 <div className="flex items-center gap-2">
                   {keywords.length > 0 && (
-                    <button
-                      onClick={() => setKeywords([])}
-                      className="text-xs text-red-600 hover:text-red-700 font-medium px-3 py-1 rounded-lg hover:bg-red-50 transition-all"
-                    >
-                      Clear All
-                    </button>
+                    <>
+                      <button
+                        onClick={copyAllKeywords}
+                        className="text-xs text-green-600 hover:text-green-700 font-medium px-3 py-1 rounded-lg hover:bg-green-50 transition-all flex items-center gap-1"
+                      >
+                        <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                        </svg>
+                        Copy All
+                      </button>
+                      <button
+                        onClick={() => setKeywords([])}
+                        className="text-xs text-red-600 hover:text-red-700 font-medium px-3 py-1 rounded-lg hover:bg-red-50 transition-all"
+                      >
+                        Clear All
+                      </button>
+                    </>
                   )}
                   <span className="text-xs text-gray-500 bg-gray-100 px-3 py-1 rounded-full font-medium">
                     {keywords.length} keywords
