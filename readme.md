@@ -1,10 +1,21 @@
-# 🌍 Keyword Translator
+# 🌍 Bulk Keyword Translator
+
+A modern, fast, and beautiful keyword translation tool built with React and Node.js. Translate multiple keywords simultaneously into 77+ languages with a clean, intuitive interface.
+
+This helps you make sure your keywords are accurate and appropriate in the target language. You can easily remove unnecessary terms and quickly copy the refined list for your work
 
 <div align="center">
 
-[![Live Demo](https://img.shields.io/badge/🚀_Live_Demo-Visit_App-10b981?style=for-the-badge)](https://keyword-translator.vercel.app)
+<img src="./images/image.png" width="850" />
+<br>
+<br>
+<a href="https://keyword-translator.vercel.app">
+  <img 
+    src="https://img.shields.io/badge/🚀_Live_Demo-Visit_App-10b981?style=for-the-badge" 
+    width="220"
+  />
+</a>
 
-A modern, fast, and beautiful keyword translation tool built with React and Node.js. Translate multiple keywords simultaneously into 77+ languages with a clean, intuitive interface.
 
 ![Keyword Translator](https://img.shields.io/badge/React-18.3.1-61dafb?style=flat&logo=react)
 ![Express](https://img.shields.io/badge/Express-4.x-000000?style=flat&logo=express)
@@ -16,6 +27,7 @@ A modern, fast, and beautiful keyword translation tool built with React and Node
 ## ✨ Features
 
 - 🎯 **Batch Translation** - Translate multiple keywords at once
+- 😁 **Quick Copy** - Quickly copy the refined list for your keywords
 - 🌐 **77+ Languages** - Support for major world languages
 - 🔍 **Searchable Language Dropdown** - Quickly find your target language
 - 🎨 **Modern UI** - Clean green and white theme with smooth animations
@@ -28,12 +40,6 @@ A modern, fast, and beautiful keyword translation tool built with React and Node
 ## 🚀 Live Demo
 
 **Frontend:** [https://keyword-translator.vercel.app](https://keyword-translator.vercel.app)
-
-**API:** [https://keyword-translator-backend.vercel.app](https://keyword-translator-backend.vercel.app)
-
-## 📸 Screenshots
-
-![Keyword Translator Interface](./images/image.png)
 
 ## 🛠️ Tech Stack
 
@@ -125,9 +131,9 @@ npm run dev
 
 ## 📝 Usage
 
-1. **Enter Keywords**: Type keywords separated by commas or press Enter after each
+1. **Enter Keywords**: Type keywords separated by commas or press Enter after each or just copy set of keywords separated by commas
 2. **Select Language**: Choose your target language from the searchable dropdown (default: Sinhala 🇱🇰)
-3. **Translate**: Click the "Translate" button to get instant translations
+3. **Translate**: Automaticaly translated to your target language, just choose your langauge from dropdown
 4. **Hover to Highlight**: Hover over any keyword to see its translation highlighted
 5. **Remove Keywords**: Click the ❌ on individual tags or use "Clear All"
 
@@ -240,7 +246,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## 📄 License
 
-This project is licensed under the ISC License.
+This project is licensed under the MIT License.
 
 ## 👤 Author
 
