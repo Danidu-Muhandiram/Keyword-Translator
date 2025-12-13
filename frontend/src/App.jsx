@@ -191,47 +191,49 @@ export default function App() {
   };
 
   return (
-    <div className="h-screen bg-gradient-to-br from-emerald-50 via-green-50 to-teal-50 flex items-center justify-center px-6 overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-green-50 to-teal-50 flex items-center justify-center px-4 md:px-6 py-4 md:py-0">
       <div className="w-full max-w-6xl">
         {/* Header */}
-        <div className="text-center mb-4 mt-8">
-          <h1 className="text-4xl font-bold mb-2">
+        <div className="text-center mb-3 md:mb-4 mt-4 md:mt-8">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2">
             <span className="bg-gradient-to-r from-emerald-600 via-green-600 to-teal-600 bg-clip-text text-transparent">
               Keyword Translator
             </span>
           </h1>
-          <p className="text-base text-gray-600">
+          <p className="text-sm md:text-base text-gray-600">
             Translate keywords instantly • Fast and accurate
           </p>
         </div>
 
         {/* Main Card */}
-        <div className="bg-white/90 backdrop-blur-lg rounded-3xl shadow-xl p-8 border border-white/50">
-          <div className="grid lg:grid-cols-2 gap-6">
+        <div className="bg-white/90 backdrop-blur-lg rounded-2xl md:rounded-3xl shadow-xl p-4 md:p-6 lg:p-8 border border-white/50">
+          <div className="grid lg:grid-cols-2 gap-4 md:gap-6">
             {/* Left Column - Input */}
             <div className="space-y-3">
-              <div className="flex items-center justify-between h-10">
-                <h3 className="text-lg font-bold text-gray-800 flex items-center gap-2">
+              <div className="flex flex-wrap items-center justify-between gap-2 min-h-10">
+                <h3 className="text-base md:text-lg font-bold text-gray-800 flex items-center gap-2">
                   <span className="w-2 h-2 bg-green-500 rounded-full"></span>
                   Enter Keywords
                 </h3>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-1.5 md:gap-2">
                   {keywords.length > 0 && (
                     <>
                       <button
                         onClick={copyAllKeywords}
-                        className="text-xs text-green-600 hover:text-green-700 font-medium px-3 py-1 rounded-lg hover:bg-green-50 transition-all flex items-center gap-1"
+                        className="text-xs text-green-600 hover:text-green-700 font-medium px-2 md:px-3 py-1 rounded-lg hover:bg-green-50 transition-all flex items-center gap-1"
                       >
                         <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
                         </svg>
-                        Copy All
+                        <span className="hidden sm:inline">Copy All</span>
+                        <span className="sm:hidden">Copy</span>
                       </button>
                       <button
                         onClick={() => setKeywords([])}
-                        className="text-xs text-red-600 hover:text-red-700 font-medium px-3 py-1 rounded-lg hover:bg-red-50 transition-all"
+                        className="text-xs text-red-600 hover:text-red-700 font-medium px-2 md:px-3 py-1 rounded-lg hover:bg-red-50 transition-all"
                       >
-                        Clear All
+                        <span className="hidden sm:inline">Clear All</span>
+                        <span className="sm:hidden">Clear</span>
                       </button>
                     </>
                   )}
@@ -240,7 +242,7 @@ export default function App() {
                   </span>
                 </div>
               </div>
-              <div className="w-full h-80 p-4 bg-gradient-to-br from-gray-50 to-green-50/20 border-2 border-gray-200 rounded-2xl focus-within:border-green-500 focus-within:ring-4 focus-within:ring-green-100 transition-all duration-300 shadow-inner overflow-y-auto">
+              <div className="w-full min-h-60 h-64 md:h-80 p-3 md:p-4 bg-gradient-to-br from-gray-50 to-green-50/20 border-2 border-gray-200 rounded-2xl focus-within:border-green-500 focus-within:ring-4 focus-within:ring-green-100 transition-all duration-300 shadow-inner overflow-y-auto">
                 {/* Keywords Tags */}
                 <div className="flex flex-wrap gap-1.5 mb-2">
                   {keywords.map((keyword, index) => (
@@ -287,21 +289,23 @@ export default function App() {
 
             {/* Right Column - Output */}
             <div className="space-y-3">
-              <div className="flex items-center justify-between h-10">
-                <div className="flex items-center gap-3">
-                  <h3 className="text-lg font-bold text-gray-800 flex items-center gap-2">
+              <div className="flex flex-wrap items-center justify-between gap-2 min-h-10">
+                <div className="flex items-center gap-2 md:gap-3">
+                  <h3 className="text-base md:text-lg font-bold text-gray-800 flex items-center gap-2">
                     <span className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></span>
-                    Translated Keywords
+                    <span className="hidden sm:inline">Translated Keywords</span>
+                    <span className="sm:hidden">Translations</span>
                   </h3>
                   {translations.length > 0 && !isTranslating && (
                     <button
                       onClick={copyAllTranslations}
-                      className="text-xs text-green-600 hover:text-green-700 font-medium px-3 py-1 rounded-lg hover:bg-green-50 transition-all flex items-center gap-1"
+                      className="text-xs text-green-600 hover:text-green-700 font-medium px-2 md:px-3 py-1 rounded-lg hover:bg-green-50 transition-all flex items-center gap-1"
                     >
                       <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
                       </svg>
-                      Copy All
+                      <span className="hidden sm:inline">Copy All</span>
+                      <span className="sm:hidden">Copy</span>
                     </button>
                   )}
                 </div>
@@ -310,7 +314,7 @@ export default function App() {
                 <div className="relative language-dropdown">
                   <button
                     onClick={() => setSearchOpen(!searchOpen)}
-                    className="pl-4 pr-3 py-2 text-sm bg-gradient-to-r from-green-500 to-emerald-600 text-white font-semibold rounded-xl border-0 shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer focus:ring-4 focus:ring-green-200 focus:outline-none flex items-center gap-2"
+                    className="pl-3 md:pl-4 pr-2 md:pr-3 py-2 text-xs md:text-sm bg-gradient-to-r from-green-500 to-emerald-600 text-white font-semibold rounded-xl border-0 shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer focus:ring-4 focus:ring-green-200 focus:outline-none flex items-center gap-1.5 md:gap-2"
                   >
                     <span>{selectedLang.flag}</span>
                     <span>{selectedLang.name}</span>
@@ -320,7 +324,7 @@ export default function App() {
                   </button>
 
                   {searchOpen && (
-                    <div className="absolute right-0 mt-2 w-64 bg-white rounded-xl shadow-2xl border border-gray-200 z-50 max-h-96 overflow-hidden">
+                    <div className="absolute right-0 mt-2 w-56 sm:w-64 bg-white rounded-xl shadow-2xl border border-gray-200 z-50 max-h-96 overflow-hidden">
                       {/* Search box */}
                       <div className="p-3 border-b sticky top-0 bg-white">
                         <input
@@ -361,7 +365,7 @@ export default function App() {
                   )}
                 </div>
               </div>
-              <div className="h-80 bg-gradient-to-br from-gray-50 to-emerald-50/30 border-2 border-dashed border-gray-300 rounded-2xl p-4 shadow-inner overflow-y-auto">
+              <div className="min-h-60 h-64 md:h-80 bg-gradient-to-br from-gray-50 to-emerald-50/30 border-2 border-dashed border-gray-300 rounded-2xl p-3 md:p-4 shadow-inner overflow-y-auto">
                 {keywords.length > 0 ? (
                   <div className="flex flex-wrap gap-1.5">
                     {translations.map((translation, index) => (
@@ -406,8 +410,8 @@ export default function App() {
           </div>
 
           {/* Bottom Info Bar */}
-          <div className="mt-6 pt-5 border-t border-gray-200/60 flex items-center justify-between text-xs">
-            <div className="flex items-center gap-6">
+          <div className="mt-4 md:mt-6 pt-4 md:pt-5 border-t border-gray-200/60 flex flex-wrap items-center justify-between gap-3 md:gap-2 text-xs">
+            <div className="flex flex-wrap items-center gap-3 md:gap-6">
               <div className="flex items-center gap-2">
                 <div className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></div>
                 <span className="text-gray-600 font-medium">Real-time</span>
@@ -416,13 +420,13 @@ export default function App() {
                 <svg className="w-4 h-4 text-green-600" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                 </svg>
-                <span className="text-gray-600 font-medium">100+ Languages</span>
+                <span className="text-gray-600 font-medium"><span className="hidden sm:inline">100+ </span>Languages</span>
               </div>
               <div className="flex items-center gap-2">
                 <svg className="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
-                <span className="text-gray-600 font-medium">Instant Results</span>
+                <span className="text-gray-600 font-medium">Instant<span className="hidden sm:inline"> Results</span></span>
               </div>
             </div>
             <div className="text-gray-400 font-medium">
